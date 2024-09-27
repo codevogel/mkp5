@@ -5,6 +5,8 @@ This script creates all the necessary files for a `p5.js` project, including an 
 
 ## Installation and Usage
 
+ℹ️This assumes you are running Linux or Windows Subsystem for Linux (WSL).
+
 1. `git clone` this repository, or download the `mkp5` file directly.
 
 2. Make the file executable:
