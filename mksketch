@@ -1,0 +1,108 @@
+#!/bin/bash
+
+# Variable to track whether to overwrite all files
+overwrite_all=false
+
+# Function to prompt before overwriting files
+prompt_overwrite() {
+    local file="$1"
+    if [ -e "$file" ]; then
+        if [ "$overwrite_all" = false ]; then
+            read -p "'$file' exists. Overwrite? [y/n/a] " -n 1 -r reply
+            echo  # move to the next line
+            if [[ $reply =~ ^[Yy]$ ]]; then
+                return 0  # Proceed with overwriting
+            elif [[ $reply =~ ^[Aa]$ ]]; then
+                overwrite_all=true  # Set global flag to overwrite all files
+                return 0
+            else
+                echo "Aborting."
+                exit 1
+            fi
+        fi
+    fi
+    return 0  # Proceed with overwriting
+}
+
+# Check for input arguments
+if [ $# -eq 0 ]; then
+    dir="."
+    sketch_name="sketch"
+elif [ $# -eq 1 ]; then
+    dir="$(realpath "$1")"
+    sketch_name="sketch"
+elif [ $# -eq 2 ]; then
+    dir="$(realpath "$1")"
+    sketch_name="$2"
+else
+    echo "Usage: $0 [directory] [sketch_name]"
+    exit 1
+fi
+
+# Check if the directory exists
+if [ ! -d "$dir" ]; then
+    # If the directory does not exist, ask to create it
+    read -p "Directory '$dir' does not exist. Create it? [y/n] " -n 1 -r reply
+    echo  # move to the next line
+    # If no, exit
+    if [[ ! $reply =~ ^[Yy]$ ]]; then
+        echo "Not creating the directory. Aborting."
+        exit 1
+    fi
+fi
+
+dir="$(realpath "$dir")"
+echo "Creating sketch at '$dir'"
+mkdir -p "$dir"
+
+# Construct file paths using the unique sketch name
+sketch_js="$dir/$sketch_name.js"
+index_html="$dir/index.html"
+style_css="$dir/style.css"
+
+# Prompt before overwriting files
+prompt_overwrite "$sketch_js"
+cat <<EOT > "$sketch_js"
+let canvasWidth = 400;
+let canvasHeight = 400;
+
+function setup() {
+   createCanvas(canvasWidth, canvasHeight);
+}
+
+function draw() {
+   // your draw code here
+   background(220);
+}
+EOT
+
+prompt_overwrite "$index_html"
+cat <<EOT > "$index_html"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+</head>
+<body>
+    <main>
+    </main>
+    <script src="$sketch_name.js"></script>
+</body>
+</html>
+EOT
+
+prompt_overwrite "$style_css"
+cat <<EOT > "$style_css"
+html, body {
+    margin: 0;
+    padding: 0;
+}
+canvas {
+    display: block;
+}
+EOT
+
+echo "Sketch '$sketch_name' created at '$dir'."
