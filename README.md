@@ -13,7 +13,7 @@ chmod +x mkp5
 
 ## Installation and Usage 🔧
 
-ℹ️This assumes you are running Linux or Windows Subsystem for Linux (WSL).
+ℹ️ This assumes you are running Linux or Windows Subsystem for Linux (WSL).
 
 1. `git clone` this repository, or download the `mkp5` file directly.
 
