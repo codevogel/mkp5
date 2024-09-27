@@ -36,6 +36,12 @@ If you didn't complete step 3, you can run the script like this:
 /the/path/to/mkp5 [directory] [sketch name]
 ```
 
+(Note that if you did not complete step 3, and are trying to run `mkp5` from the current directory, you'll have to prepend `./` to the script name.)
+
+```bash
+./mkp5 [directory] [sketch name]
+```
+
 ## Examples
 
 ```bash
