@@ -1,7 +1,7 @@
 # mkp5
 Initialize a [p5.js](https://p5js.org/) project from the command line! 🐦
 
-This script creates all the necessary files for a `p5.js` project, including an `index.html`, `sketch.js`, and `style.css` file. You can choose a directory to create the `p5` project in (default: current directory, aka `.`), and the name of the sketch (default: `sketch.js`).
+This script creates all the necessary files for a `p5.js` project, including an `index.html`, `sketch.js`, and `style.css` file. You can choose a directory to create the `p5` project in (default: current directory, aka `.`), and the name of the sketch (default: `sketch`).
 
 ## Installation and Usage
 
