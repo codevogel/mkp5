@@ -58,13 +58,18 @@ If you didn't complete step 3, you can run the script like this:
 mkp5
 ```
 
+Creates `index.html`, `sketch.js`, and `style.css` files in the current directory.
+
 ```bash
 mkp5 my-p5-project
 ```
+Creates `index.html`, `sketch.js`, and `style.css` files in `./my-p5-project` 
 
 ```bash
 mkp5 my-p5-project my-sketch
 ```
+
+Creates `index.html`, `my-sketch.js`, and `style.css` files in `./my-p5-project`
 
 ## Contributing 🤝
 
